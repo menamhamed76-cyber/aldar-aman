@@ -2,140 +2,290 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>الدار أمان</title>
-
-<!-- خط رقعة -->
 <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
-
 <style>
-body {
-  margin: 0;
-  font-family: 'Rakkas', cursive;
-  background: linear-gradient(135deg, #ffffff, #f3e6ff);
-  color: #4b2354;
-  text-align: center;
+body{
+  margin:0;
+  background:linear-gradient(135deg,#ffffff,#f4e6fa);
+  text-align:center;
+  direction:rtl;
+  font-family: 'Rakkas','Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji', cursive;
 }
-
-/* إخفاء الصفحات */
-.page { display: none; padding: 20px; }
-.page.active { display: block; }
-
-/* زرار */
-button {
-  font-family: 'Rakkas', cursive;
-  padding: 12px 25px;
-  font-size: 20px;
-  border: none;
-  border-radius: 15px;
-  background: #b47ac9;
-  color: white;
-  box-shadow: 0 5px 0 #8e5aa3;
+/* شاشة الدخول */
+#login{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
-button:active {
-  box-shadow: none;
-  transform: translateY(5px);
+#login h1{
+  font-size:38px;
+  color:#7b1fa2;
+  margin-bottom:25px;
 }
-
-input {
-  padding: 12px;
-  font-size: 18px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  width: 80%;
-  text-align: center;
-  font-family: 'Rakkas', cursive;
+#login input{
+  padding:12px;
+  font-size:20px;
+  border-radius:18px;
+  border:1px solid #ccc;
+  width:260px;
+  text-align:center;
 }
-
-/* صورة */
-img {
-  max-width: 90%;
-  border-radius: 20px;
-  margin: 15px 0;
+#login button{
+  margin-top:22px;
+  padding:14px 40px;
+  font-size:20px;
+  border:none;
+  border-radius:22px;
+  background:#9b59b6;
+  color:white;
+  box-shadow:0 6px #6c3483;
 }
-
-/* فيديو */
-iframe, video {
-  width: 100%;
-  max-width: 500px;
-  border-radius: 20px;
-  margin-top: 15px;
+#login button:active{
+  transform:translateY(3px);
+  box-shadow:0 3px #6c3483;
+}
+#error{
+  margin-top:18px;
+  color:#c0392b;
+  font-size:18px;
+}
+/* المحتوى */
+#content{
+  display:none;
+  padding:20px;
+}
+#content h2{
+  font-size:30px;
+  color:#7b1fa2;
+}
+.main-img{
+  width:90%;
+  max-width:360px;
+  border-radius:25px;
+  margin:18px 0;
+}
+.box{
+  background:white;
+  padding:22px;
+  border-radius:28px;
+  margin:22px auto;
+  max-width:390px;
+  box-shadow:0 5px 18px rgba(0,0,0,.12);
+}
+.box p{
+  font-size:22px;
+  line-height:2;
+}
+.date{
+  margin-top:18px;
+  font-size:22px;
+  font-weight:bold;
+}
+iframe{
+  margin-top:25px;
+  border-radius:20px;
+}
+.next-btn{
+  margin:30px auto;
+  padding:14px 35px;
+  font-size:22px;
+  background:#8e44ad;
+  color:white;
+  border:none;
+  border-radius:25px;
+}
+/* صفحة الذكريات */
+#memoriesSection{
+  display:none;
+  padding:20px;
+}
+#memoriesSection h2{
+  color:#7b1fa2;
+  font-size:36px;
+  margin-bottom:25px;
+}
+#memoriesSection textarea{
+  width:90%;
+  max-width:400px;
+  height:120px;
+  border-radius:15px;
+  border:1px solid #ccc;
+  padding:12px;
+  font-size:18px;
+  margin-bottom:18px;
+  resize:none;
+}
+#memoriesSection input[type="date"], #memoriesSection input[type="file"]{
+  padding:10px;
+  font-size:18px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  margin-bottom:18px;
+}
+#memoriesSection button{
+  padding:12px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:18px;
+  background:#9b59b6;
+  color:white;
+}
+.memory{
+  background:white;
+  border-radius:20px;
+  padding:18px;
+  margin:15px auto;
+  max-width:380px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+  text-align:right;
+}
+.memory img{
+  max-width:100%;
+  border-radius:15px;
+  margin-top:10px;
 }
 </style>
 </head>
-
 <body>
 
-<!-- صفحة الدخول -->
-<div class="page active" id="login">
-  <h1>صُنع بحب 💜</h1>
-  <input type="password" id="password" placeholder="خمن يا دبدوبتي 🙈">
-  <br><br>
-  <button onclick="checkPassword()">عرفتني</button>
-  <p id="error"></p>
+<!-- شاشة الباسورد -->
+<div id="login">
+  <h1> صُنع بحُب لبدورتي 💜</h1>
+  <input type="password" id="password" placeholder="خمن يبدورتي 🙈">
+  <button onclick="checkPass()">عرفتني</button>
+  <div id="error"></div>
 </div>
 
 <!-- الصفحة الرئيسية -->
-<div class="page" id="home">
-  <h2>اي كل ده يعم حمدالله بثه 😂</h2>
+<div id="content">
+  <h2>اي كل ده يعم حمدالله بثه 💕</h2>
 
-  <img src="https://i.postimg.cc/QMWpMBGh/Snapchat-1558314841.jpg">
+  <img src="https://i.postimg.cc/QMWpMBGh/Snapchat-1558314841.jpg" class="main-img">
 
-  <p>
-    مهما ودّتنا الدنيا ولفّت بينا<br>
-    هتفضلي دايما أغلى حد عندي وأمان قلبي وبيتي 💜
-  </p>
+  <div class="box">
+    <p>
+      مهما ودّتنا الدنيا ولفّت بينا    
+      هتفضلي دايمًا أغلى حد عندي    
+      وأمان قلبي وبيتي اللي برتاح فيه 🤍  
+    </p>
+  </div>
 
-  <p>
-    قولت أتعلم حاجة جديدة وأعتبرها مسج السنة الجديدة 🎆<br>
-    كل سنة وإنت معايا وجمبي دايمًا ❤️
-  </p>
+  <div class="box">
+    <p>
+     قولت اتعلم حاجه جديده وكمان اعتبرها المسج بتاعت السنه الجديده يعم كل سنه وانت معايا وجمبي علطول وميحرمنيش متك ابدا واعيش اعملك حاجات مجنونه كده وافضل عايشه معاك طول عمري وافضل اعده علي قلبك م هكتب كتير اعده من الساعه 7 ل 1 بعمل في البتاع ده بجد تعبت اوي علفكره انت مش مجرد حبيبي وبس لا جوزي وحبيبي واعز صديق عندي وابني اللي تعبت فيه وجودك لوحده في حياتي عمل فرق كبير اوي الوحيد اللي ببقا ضعيف قدامو ومتكسفش الابلكيشن دع معاك عشان متحسش انك لوحدك   
+    </p>
+    <div class="date">30 / 12 / 2025</div>
+  </div>
 
-  <!-- فيديو -->
-  <iframe src="https://streamable.com/e/mmf2xq" allowfullscreen></iframe>
+  <iframe src="https://streamable.com/e/mmf2xq" width="100%" height="300" frameborder="0" allowfullscreen></iframe>
 
-  <br><br>
-  <button onclick="goMemories()">ذكريتنا كلها 🏠</button>
-
-  <!-- أغنية -->
-  <audio id="song" loop>
-    <source src="https://drive.google.com/uc?export=download&id=1sujCyX3QEmbwTTIKGlsKOB_qAtIFm8vw" type="audio/mpeg">
-  </audio>
+  <button class="next-btn" onclick="openMemoriesPage()">ذكريتنا كلها 💜</button>
 </div>
 
-<!-- صفحة الذكريات -->
-<div class="page" id="memories">
-  <h2>ذكريتنا كلها 💕</h2>
-  <p>هنا تقدري تضيفي صور، فيديوهات، وكلام وقت ما تحبي ✨</p>
+<!-- صفحة الذكريات داخل نفس الملف -->
+<div id="memoriesSection">
+  <h2>ذكرياتنا 💕</h2>
+  <textarea id="memoryText" placeholder="اكتب ذكرياتك هنا..."></textarea><br>
+  <input type="date" id="memoryDate"><br>
+  <input type="file" id="memoryImage" accept="image/*"><br>
+  <button onclick="saveMemory()">حفظ 💾</button>
 
-  <!-- تضيفي تحت هنا أي حاجة بعدين -->
+  <div id="savedMemories"></div>
 </div>
+
+<!-- الأغنية -->
+<audio id="song" src="https://drive.google.com/uc?export=download&id=1sujCyX3QEmbwTTIKGlsKOB_qAtIFm8vw" loop></audio>
 
 <script>
 let tries = 0;
-const correctPassword = "18/12/2025";
 
-function checkPassword() {
-  const input = document.getElementById("password").value;
+// تحقق كلمة المرور وتشغيل الأغنية فور الضغط
+function checkPass(){
+  const song = document.getElementById("song");
+  song.play().catch(e => console.log("لا يمكن تشغيل الأغنية تلقائيًا:", e));
+
+  const pass = document.getElementById("password").value;
   const error = document.getElementById("error");
 
-  if (input === correctPassword) {
-    document.getElementById("login").classList.remove("active");
-    document.getElementById("home").classList.add("active");
-    document.getElementById("song").play();
+  if(pass === "18/12/2025"){
+    document.getElementById("login").style.display = "none";
+    document.getElementById("content").style.display = "block";
   } else {
     tries++;
-    if (tries === 1) error.innerText = "انت شكلك مبتحبنيش 😒";
-    else if (tries === 2) error.innerText = "ولا مرة تانية مهتم 😤";
-    else error.innerText = "شكلك مش بدر بقى 🙃";
+    if(tries === 1) error.innerText = "انت شكلك م بتحبني 😔";
+    else if(tries === 2) error.innerText = "ولا مهتم بيا 💔";
+    else error.innerText = "شكلك م بدر 😢";
   }
 }
 
-function goMemories() {
-  document.getElementById("home").classList.remove("active");
-  document.getElementById("memories").classList.add("active");
+// فتح صفحة الذكريات
+function openMemoriesPage(){
+  document.getElementById("content").style.display = "none";
+  document.getElementById("memoriesSection").style.display = "block";
+  loadMemories();
 }
-</script>
 
+// حفظ ذكرى
+function saveMemory(){
+  const text = document.getElementById("memoryText").value;
+  const date = document.getElementById("memoryDate").value;
+  const fileInput = document.getElementById("memoryImage");
+  let imageData = "";
+
+  if(fileInput.files.length > 0){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      imageData = e.target.result;
+      addMemory(text,date,imageData);
+    }
+    reader.readAsDataURL(fileInput.files[0]);
+  } else {
+    addMemory(text,date,imageData);
+  }
+}
+
+function addMemory(text,date,image){
+  if(text === "" || date === ""){
+    alert("محتاج تكتب الذكرى وتحدد التاريخ!");
+    return;
+  }
+
+  const memories = JSON.parse(localStorage.getItem("memories") || "[]");
+  memories.push({text,date,image});
+  localStorage.setItem("memories", JSON.stringify(memories));
+
+  document.getElementById("memoryText").value = "";
+  document.getElementById("memoryDate").value = "";
+  document.getElementById("memoryImage").value = "";
+
+  loadMemories();
+}
+
+// عرض الذكريات
+function loadMemories(){
+  const memoriesDiv = document.getElementById("savedMemories");
+  memoriesDiv.innerHTML = "";
+  const memories = JSON.parse(localStorage.getItem("memories") || "[]");
+
+  memories.forEach(mem => {
+    const div = document.createElement("div");
+    div.classList.add("memory");
+    let html = `<p>${mem.text}</p><p class="date">${mem.date}</p>`;
+    if(mem.image) html += `<img src="${mem.image}">`;
+    div.innerHTML = html;
+    memoriesDiv.appendChild(div);
+  });
+}
+
+// عند تحميل الصفحة، لو قسم الذكريات ظاهر
+window.onload = function(){
+  if(document.getElementById("memoriesSection").style.display === "block"){
+    loadMemories();
+  }
+};
+</script>
 </body>
 </html>
